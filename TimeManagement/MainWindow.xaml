@@ -1,0 +1,398 @@
+﻿<Window x:Class="TimeManagement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeManagement"
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/image.ico"
+        Closing="Window_Closing" WindowStartupLocation="CenterScreen"
+        Title="TaskTracker" Height="750" Width="800" MinWidth="307">
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="ButtonRoundVolume1">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border TextBlock.Foreground="{StaticResource Color_3}" Background="{StaticResource Color_3}" BorderBrush="{StaticResource Color_4}"
+                                BorderThickness="2" CornerRadius="10">
+                            <Border Margin="0,0,0,7" CornerRadius="10" Background="{StaticResource Color_2}">
+                                <Grid>
+                                    <ContentPresenter RecognizesAccessKey="True" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ButtonNavigate">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border TextBlock.Foreground="{StaticResource Color_3}" Background="{StaticResource Color_5}" BorderBrush="{StaticResource Color_6}"
+                        BorderThickness="1.5" CornerRadius="0">
+                            <Border Margin="0,0,0,5" CornerRadius="0" Background="#FF877E8C">
+                                <Grid>
+                                    <TextBlock FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_5}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ContentPresenter RecognizesAccessKey="True" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--HEADER-->
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                    <GradientStop Color="#FF888888"/>
+                    <GradientStop Color="#FF8C868E" Offset="1"/>
+                    <GradientStop Color="#FF6F6F6F"/>
+                    <GradientStop Color="#FFA092A4" Offset="0.838"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="85"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{Binding MainClock}" Grid.Column="0" FontSize="55" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                       FontWeight="Bold" Foreground="White" FontFamily="{StaticResource MainFont}" Margin="10,0,0,0"/>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" x:Name="DayOfWeekTB" Text="ПН" FontWeight="Bold" FontFamily="{StaticResource MainFont}" Foreground="White" FontSize="20"
+                           VerticalAlignment="Bottom"/>
+                <TextBlock Grid.Row="1" x:Name="DateTB" Text="00.00" FontFamily="{StaticResource MainFont}" Foreground="White" FontSize="20"
+                            VerticalAlignment="Top"/>
+            </Grid>
+
+
+            <!--RIGHT PANEL-->
+            <Grid Grid.Column="3">
+
+            </Grid>
+
+        </Grid>
+
+
+        <Rectangle Grid.Row="1" Fill="{StaticResource Color_6}"/>
+
+
+        <Grid Grid.Row="2">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                    <GradientStop Color="#FF1B1B1B" Offset="0"/>
+                    <GradientStop Color="#FF212121" Offset="1"/>
+                    <GradientStop Color="#FF323232" Offset="0.537"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="NavPanel" Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--MENU-->
+            <Grid Grid.Column="0" x:Name="MenuPanel" Background="{StaticResource Color_3}" Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+
+                    <Button x:Name="NavTasksPageButton" Background="Transparent" BorderThickness="0" Click="Navigate_Click"
+Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- Прозрачный Border для захвата области кнопки -->
+                                            <Border Background="Transparent">
+                                                <Viewbox Margin="0,6,5,8">
+                                                    <Path x:Name="PathTaskPage" Data="M 72.737 90 H 17.262 c -3.076 0 -5.578 -2.502 -5.578 -5.578 V 18.599 c 0 -3.076 2.502 -5.578 5.578 -5.578 h 10.485 c 1.104 0 2 0.896 2 2 s -0.896 2 -2 2 H 17.262 c -0.87 0 -1.578 0.708 -1.578 1.578 v 65.823 c 0 0.87 0.708 1.578 1.578 1.578 h 55.475 c 0.87 0 1.578 -0.708 1.578 -1.578 V 18.599 c 0 -0.87 -0.708 -1.578 -1.578 -1.578 H 62.252 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 10.485 c 3.076 0 5.578 2.502 5.578 5.578 v 65.823 C 78.315 87.498 75.813 90 72.737 90 z M 62.252 21.57 H 27.748 c -1.104 0 -2 -0.896 -2 -2 v -5.494 c 0 -4.028 3.277 -7.306 7.306 -7.306 h 2.788 C 37.044 2.808 40.71 0 45 0 s 7.955 2.808 9.158 6.77 h 2.789 c 4.027 0 7.305 3.277 7.305 7.306 v 5.494 C 64.252 20.674 63.356 21.57 62.252 21.57 z M 29.748 17.57 h 30.504 v -3.494 c 0 -1.823 -1.482 -3.306 -3.305 -3.306 h -4.416 c -1.023 0 -1.881 -0.772 -1.989 -1.79 C 50.242 6.141 47.859 4 45 4 c -2.86 0 -5.243 2.141 -5.543 4.98 c -0.107 1.018 -0.966 1.79 -1.989 1.79 h -4.415 c -1.823 0 -3.306 1.483 -3.306 3.306 V 17.57 z M 27.618 40.754 c -0.057 0 -0.114 -0.002 -0.171 -0.007 c -0.621 -0.053 -1.181 -0.393 -1.516 -0.919 l -3.096 -4.866 c -0.593 -0.932 -0.318 -2.168 0.614 -2.761 c 0.933 -0.592 2.168 -0.318 2.761 0.614 l 1.691 2.657 l 5.403 -5.939 c 0.743 -0.818 2.008 -0.877 2.825 -0.134 s 0.877 2.008 0.134 2.825 L 29.097 40.1 C 28.716 40.518 28.178 40.754 27.618 40.754 z M 27.618 59.834 c -0.057 0 -0.114 -0.002 -0.171 -0.008 c -0.621 -0.053 -1.182 -0.393 -1.516 -0.919 l -3.096 -4.866 c -0.593 -0.932 -0.318 -2.168 0.614 -2.761 c 0.933 -0.594 2.168 -0.318 2.761 0.614 l 1.691 2.657 l 5.403 -5.939 c 0.743 -0.817 2.008 -0.877 2.825 -0.134 s 0.877 2.008 0.134 2.825 l -7.165 7.876 C 28.716 59.599 28.178 59.834 27.618 59.834 z M 27.618 78.914 c -0.057 0 -0.114 -0.002 -0.171 -0.008 c -0.621 -0.053 -1.182 -0.393 -1.516 -0.919 l -3.096 -4.866 c -0.593 -0.932 -0.318 -2.168 0.614 -2.761 c 0.933 -0.594 2.168 -0.317 2.761 0.614 l 1.691 2.657 l 5.403 -5.94 c 0.743 -0.817 2.008 -0.877 2.825 -0.134 s 0.877 2.008 0.134 2.825 l -7.165 7.877 C 28.716 78.679 28.178 78.914 27.618 78.914 z M 65.479 37.177 H 42.254 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 23.224 c 1.104 0 2 0.896 2 2 S 66.583 37.177 65.479 37.177 z M 65.479 56.257 H 42.254 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 23.224 c 1.104 0 2 0.896 2 2 S 66.583 56.257 65.479 56.257 z M 65.479 75.336 H 42.254 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 23.224 c 1.104 0 2 0.896 2 2 S 66.583 75.336 65.479 75.336 z"
+                              Fill="{StaticResource Color_2}" Stroke="{StaticResource Color_2}" StrokeThickness="0"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <!-- Триггер для изменения цвета при наведении на кнопку -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PathTaskPage" Property="Fill" Value="{StaticResource Color_1}"/>
+                                                    <Setter TargetName="PathTaskPage" Property="Stroke" Value="{StaticResource Color_1}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="NavReportPageButton" Background="Transparent" BorderThickness="0" Click="Navigate_Click"
+Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- Прозрачный Border для захвата области кнопки -->
+                                            <Border Background="Transparent">
+                                                <Viewbox Margin="0,10,2,10">
+                                                    <Path x:Name="PathReportPage" Data="M7.5 0.792892L11.8536 5.14645L11.1464 5.85355L8 2.70711V12H7V2.70711L3.85355 5.85355L3.14645 5.14645L7.5 0.792892ZM14 13V14H1V13H14Z"
+                              Fill="{StaticResource Color_2}" Stroke="{StaticResource Color_2}" StrokeThickness="0"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <!-- Триггер для изменения цвета при наведении на кнопку -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PathReportPage" Property="Fill" Value="{StaticResource Color_1}"/>
+                                                    <Setter TargetName="PathReportPage" Property="Stroke" Value="{StaticResource Color_1}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="NavArchivePageButton" Background="Transparent" BorderThickness="0" Click="Navigate_Click"
+Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- Прозрачный Border для захвата области кнопки -->
+                                            <Border Background="Transparent">
+                                                <Viewbox Margin="0,11,2,11">
+                                                    <Path x:Name="PathArchivePage" Data="M54.168,0H5.832C4.271,0,3,1.271,3,2.832v54.336C3,58.729,4.271,60,5.832,60h48.336C55.729,60,57,58.729,57,57.168V2.832 C57,1.271,55.729,0,54.168,0z M5.832,2h48.336C54.627,2,55,2.373,55,2.832V29H5V2.832C5,2.373,5.373,2,5.832,2z M54.168,58H5.832 C5.373,58,5,57.627,5,57.168V31h50v26.168C55,57.627,54.627,58,54.168,58z M24.505,18h10.99C37.428,18,39,16.428,39,14.495V13c0-0.553-0.447-1-1-1s-1,0.447-1,1v1.495C37,15.325,36.325,16,35.495,16h-10.99C23.675,16,23,15.325,23,14.495V13c0-0.553-0.447-1-1-1s-1,0.447-1,1v1.495C21,16.428,22.572,18,24.505,18z M38,41c-0.553,0-1,0.447-1,1v1.495C37,44.325,36.325,45,35.495,45h-10.99C23.675,45,23,44.325,23,43.495V42 c0-0.553-0.447-1-1-1s-1,0.447-1,1v1.495C21,45.428,22.572,47,24.505,47h10.99C37.428,47,39,45.428,39,43.495V42 C39,41.447,38.553,41,38,41z"
+                              Fill="{StaticResource Color_2}" Stroke="{StaticResource Color_2}" StrokeThickness="2"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <!-- Триггер для изменения цвета при наведении на кнопку -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PathArchivePage" Property="Fill" Value="{StaticResource Color_1}"/>
+                                                    <Setter TargetName="PathArchivePage" Property="Stroke" Value="{StaticResource Color_1}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="NavNotificationPageButton" Background="Transparent" BorderThickness="0" Click="Navigate_Click"
+Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- Прозрачный Border для захвата области кнопки -->
+                                            <Border Background="Transparent">
+                                                <Viewbox Margin="0,8,5,8">
+                                                    <Path x:Name="PathNotificationPage" Data="M28.7071,19.293,26,16.5859V13a10.0136,10.0136,0,0,0-9-9.9492V1H15V3.0508A10.0136,10.0136,0,0,0,6,13v3.5859L3.2929,19.293A1,1,0,0,0,3,20v3a1,1,0,0,0,1,1h7v.7768a5.152,5.152,0,0,0,4.5,5.1987A5.0057,5.0057,0,0,0,21,25V24h7a1,1,0,0,0,1-1V20A1,1,0,0,0,28.7071,19.293ZM19,25a3,3,0,0,1-6,0V24h6Zm8-3H5V20.4141L7.707,17.707A1,1,0,0,0,8,17V13a8,8,0,0,1,16,0v4a1,1,0,0,0,.293.707L27,20.4141Z"
+                              Fill="{StaticResource Color_2}" Stroke="{StaticResource Color_2}" StrokeThickness="0"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <!-- Триггер для изменения цвета при наведении на кнопку -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PathNotificationPage" Property="Fill" Value="{StaticResource Color_1}"/>
+                                                    <Setter TargetName="PathNotificationPage" Property="Stroke" Value="{StaticResource Color_1}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
+
+                    <Button x:Name="NavSettingsPageButton" Background="Transparent" BorderThickness="0" Click="Navigate_Click"
+Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- Прозрачный Border для захвата области кнопки -->
+                                            <Border Background="Transparent">
+                                                <Viewbox Margin="10">
+                                                    <Path x:Name="PathSettingsPage" Data="M 52.445 90 h -14.89 c -1.801 0 -3.266 -1.465 -3.266 -3.265 v -4.428 c -2.808 -0.805 -5.52 -1.931 -8.089 -3.357 l -3.136 3.135 c -1.232 1.234 -3.386 1.234 -4.619 0 L 7.916 71.555 c -1.273 -1.274 -1.273 -3.345 0 -4.619 l 3.137 -3.136 c -1.427 -2.57 -2.553 -5.282 -3.358 -8.09 H 3.266 C 1.465 55.711 0 54.246 0 52.445 v -14.89 c 0 -1.801 1.465 -3.266 3.266 -3.266 h 4.428 c 0.805 -2.809 1.931 -5.521 3.358 -8.09 l -3.136 -3.136 c -1.273 -1.273 -1.273 -3.345 0 -4.618 L 18.445 7.916 c 1.231 -1.233 3.384 -1.236 4.619 0 l 3.136 3.136 c 2.57 -1.427 5.282 -2.552 8.089 -3.358 V 3.266 C 34.289 1.466 35.754 0 37.555 0 h 14.89 c 1.801 0 3.266 1.465 3.266 3.266 v 4.427 c 2.807 0.805 5.519 1.931 8.089 3.358 l 3.136 -3.136 c 0.617 -0.617 1.437 -0.957 2.309 -0.957 c 0 0 0 0 0.001 0 c 0.872 0 1.693 0.34 2.309 0.958 l 10.528 10.528 c 1.273 1.274 1.272 3.346 0 4.618 l -3.136 3.137 c 1.427 2.57 2.553 5.283 3.357 8.09 h 4.428 c 1.801 0 3.266 1.465 3.266 3.266 v 14.89 c 0 1.8 -1.465 3.265 -3.266 3.265 h -4.428 c -0.805 2.808 -1.931 5.52 -3.357 8.09 l 3.136 3.136 c 1.272 1.274 1.272 3.345 0.001 4.618 l -10.53 10.529 c -1.231 1.234 -3.383 1.234 -4.619 0 L 63.8 78.949 c -2.57 1.427 -5.282 2.553 -8.089 3.357 v 4.428 C 55.711 88.534 54.246 90 52.445 90 z M 25.72 75.231 l 0.991 0.59 c 2.953 1.756 6.124 3.072 9.426 3.912 l 1.118 0.285 v 6.716 c 0 0.164 0.134 0.298 0.299 0.298 h 14.89 c 0.165 0 0.299 -0.134 0.299 -0.298 v -6.716 l 1.117 -0.285 c 3.3 -0.839 6.472 -2.155 9.426 -3.912 l 0.992 -0.59 l 4.754 4.755 c 0.146 0.147 0.281 0.144 0.422 0.001 l 10.53 -10.529 c 0.116 -0.116 0.116 -0.307 -0.001 -0.424 l -4.755 -4.753 l 0.59 -0.992 c 1.756 -2.954 3.072 -6.126 3.912 -9.427 l 0.285 -1.117 h 6.716 c 0.165 0 0.299 -0.134 0.299 -0.298 v -14.89 c 0 -0.165 -0.134 -0.299 -0.299 -0.299 h -6.716 l -0.285 -1.118 c -0.839 -3.301 -2.156 -6.473 -3.912 -9.426 l -0.59 -0.991 l 4.756 -4.755 c 0.116 -0.116 0.116 -0.307 -0.001 -0.424 L 69.457 10.014 c -0.144 -0.144 -0.278 -0.146 -0.423 0 l -4.754 4.754 l -0.992 -0.589 c -2.954 -1.757 -6.126 -3.073 -9.426 -3.913 l -1.117 -0.284 V 3.266 c 0 -0.165 -0.134 -0.299 -0.299 -0.299 h -14.89 c -0.165 0 -0.299 0.134 -0.299 0.299 v 6.716 l -1.118 0.284 c -3.302 0.84 -6.473 2.156 -9.426 3.912 l -0.991 0.59 l -4.755 -4.755 c -0.145 -0.144 -0.278 -0.144 -0.423 0 L 10.014 20.543 c -0.116 0.116 -0.116 0.306 0 0.423 l 4.755 4.755 l -0.59 0.991 c -1.756 2.953 -3.072 6.124 -3.912 9.426 l -0.284 1.118 H 3.266 c -0.165 0 -0.299 0.134 -0.299 0.299 v 14.89 c 0 0.164 0.134 0.298 0.299 0.298 h 6.716 l 0.284 1.117 c 0.84 3.301 2.156 6.473 3.913 9.427 l 0.589 0.992 l -4.755 4.754 c -0.116 0.117 -0.116 0.306 0 0.423 l 10.528 10.528 c 0.145 0.145 0.279 0.145 0.423 0 L 25.72 75.231 z M 45 69.452 c -13.482 0 -24.451 -10.969 -24.451 -24.451 S 31.517 20.549 45 20.549 S 69.451 31.518 69.451 45 S 58.482 69.452 45 69.452 z M 45 23.516 c -11.846 0 -21.484 9.638 -21.484 21.484 S 33.153 66.485 45 66.485 S 66.484 56.847 66.484 45 S 56.846 23.516 45 23.516 z "
+                              Fill="{StaticResource Color_2}" Stroke="{StaticResource Color_2}" StrokeThickness="2"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <!-- Триггер для изменения цвета при наведении на кнопку -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PathSettingsPage" Property="Fill" Value="{StaticResource Color_1}"/>
+                                                    <Setter TargetName="PathSettingsPage" Property="Stroke" Value="{StaticResource Color_1}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button x:Name="NavInfoPageButton" Loaded="NavInfoPageButton_Loaded" Background="Transparent" BorderThickness="0" Click="Navigate_Click"
+        Width="50" Height="50" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- Прозрачный Border для захвата области кнопки -->
+                                            <Border Background="Transparent">
+                                                <Viewbox Margin="10">
+                                                    <Path x:Name="PathInfoPage" Data="M 45 55.425 c -0.531 0 -1.062 -0.21 -1.455 -0.627 c -0.758 -0.803 -0.722 -2.069 0.081 -2.827 l 9.83 -9.281 c 2.079 -2.14 3.258 -5.041 3.258 -8.11 v -0.365 c 0 -3.187 -1.257 -6.167 -3.539 -8.391 c -2.282 -2.223 -5.299 -3.407 -8.486 -3.32 c -6.289 0.162 -11.405 5.554 -11.405 12.02 c 0 1.104 -0.896 2 -2 2 s -2 -0.896 -2 -2 c 0 -8.616 6.864 -15.801 15.302 -16.019 c 4.291 -0.091 8.32 1.472 11.38 4.454 c 3.062 2.984 4.748 6.981 4.748 11.255 v 0.365 c 0 4.117 -1.581 8.009 -4.451 10.959 l -9.891 9.34 C 45.986 55.244 45.493 55.425 45 55.425 z M 45 62.195 c -1.104 0 -2 -0.896 -2 -2 v -6.771 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 6.771 C 47 61.3 46.104 62.195 45 62.195 z M 45 72.43 c -0.79 0 -1.56 -0.32 -2.12 -0.88 S 42 70.22 42 69.43 s 0.32 -1.56 0.88 -2.12 c 0.7 -0.7 1.73 -1.02 2.71 -0.819 c 0.19 0.04 0.38 0.09 0.56 0.17 c 0.181 0.069 0.351 0.17 0.521 0.279 c 0.16 0.11 0.31 0.23 0.45 0.37 C 47.68 67.87 48 68.64 48 69.43 s -0.32 1.561 -0.88 2.12 c -0.141 0.14 -0.29 0.27 -0.45 0.38 c -0.17 0.101 -0.34 0.2 -0.521 0.271 c -0.18 0.08 -0.37 0.13 -0.56 0.17 C 45.39 72.41 45.2 72.43 45 72.43 z M 45 90 C 20.187 90 0 69.813 0 45 S 20.187 0 45 0 s 45 20.187 45 45 S 69.813 90 45 90 z M 45 4 C 22.393 4 4 22.393 4 45 s 18.393 41 41 41 s 41 -18.393 41 -41 S 67.607 4 45 4 z "
+                                      Fill="{StaticResource Color_2}" Stroke="{StaticResource Color_2}" StrokeThickness="1"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <!-- Триггер для изменения цвета при наведении на кнопку -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PathInfoPage" Property="Fill" Value="{StaticResource Color_1}"/>
+                                                    <Setter TargetName="PathInfoPage" Property="Stroke" Value="{StaticResource Color_1}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+
+
+            <!--Frame-->
+            <Frame Grid.Column="1" x:Name="MainPageFrame" NavigationUIVisibility="Hidden"></Frame>
+            
+
+            <!--Уведомление-->
+            <Border Grid.Column="1" x:Name="NotificationBlock" MouseLeftButtonDown="NotificationBlock_MouseLeftButtonDown" Visibility="Collapsed" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderThickness="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center" FontSize="20" Margin="10" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+
+                    <Button Grid.Column="1" Click="DeleteNotif_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <TextBlock Text="×" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25" FontFamily="{StaticResource MainFont}">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Type}" Value="Success">
+                                <Setter Property="BorderBrush" Value="{StaticResource Color_Green}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="Hint">
+                                <Setter Property="BorderBrush" Value="{StaticResource Color_Blue}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="Warning">
+                                <Setter Property="BorderBrush" Value="{StaticResource Color_Yellow}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="Error">
+                                <Setter Property="BorderBrush" Value="{StaticResource Color_Red}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="Success">
+                                <Setter Property="Background" Value="{StaticResource Color_DarkGreen}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="Hint">
+                                <Setter Property="Background" Value="{StaticResource Color_DarkBlue}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="Warning">
+                                <Setter Property="Background" Value="{StaticResource Color_DarkYellow}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Type}" Value="Error">
+                                <Setter Property="Background" Value="{StaticResource Color_DarkRed}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </Grid>
+
+
+
+
+    </Grid>
+</Window>

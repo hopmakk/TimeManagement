@@ -1,0 +1,471 @@
+﻿<Page x:Class="TimeManagement.Pages.TaskMonitoringPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManagement.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600"
+      Title="TaskMonitoringPage">
+
+
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="ButtonRoundVolume1">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border TextBlock.Foreground="{StaticResource Color_3}" Background="{StaticResource Color_4}" BorderBrush="{StaticResource Color_6}"
+                        BorderThickness="2" CornerRadius="10">
+                            <Border Margin="0,0,0,5" CornerRadius="10" Background="{StaticResource Color_3}">
+                                <Grid>
+                                    <ContentPresenter RecognizesAccessKey="True" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                </Grid>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+
+
+    <Grid>
+        <!--TIME MANAGMENT-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{Binding ActiveTaskStatus}" Margin="10,15,10,10" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+
+            <!--✓ * ⊞ ×-->
+
+
+            <Border x:Name="ActiveTaskContainer" Grid.Row="0"/>
+
+            <Rectangle Grid.Row="1" Height="1" Fill="{StaticResource Color_3}" Margin="100,0,100,0" MaxWidth="1100"/>
+
+            <ScrollViewer Grid.Row="2" Margin="10,10,10,10" VerticalScrollBarVisibility="Hidden">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="1" Click="ShowFooter_Click" Style="{StaticResource ButtonRoundVolume1}" Margin="10" Width="50" Height="50">
+                        <TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-5,0,0"
+FontSize="37" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_5}">
+                        </TextBlock>
+                    </Button>
+
+                    <ItemsControl x:Name="TaskItemsControl" Grid.Row="0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <Border MouseLeftButtonDown="TaskBorder_MouseLeftButtonDown" Margin="10,15,10,10" Height="Auto" Background="{StaticResource Color_6}" MaxWidth="1000">
+                                    <!--<Grid  Background="{StaticResource Color_4}" Margin="3,3,3,7">-->
+                                    <Grid Margin="3,3,3,7">
+                                        <Grid.Background>
+                                            <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                                <GradientStop Color="#FF5A5A5A" Offset="0.085"/>
+                                                <GradientStop Color="#FF464646" Offset="1"/>
+                                                <GradientStop Color="#FF817884" Offset="0.736"/>
+                                                <GradientStop Color="#FF6D676F" Offset="0.861"/>
+                                                <GradientStop Color="#FF4E4E4E" Offset="0"/>
+                                            </LinearGradientBrush>
+                                        </Grid.Background>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="50"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="0" x:Name="LogsRowSize"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="45"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding SynchrStatus}" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Synchr}"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding TaskId}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,20,0"
+ FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Synchr}"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left"
+ FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Synchr}"/>
+
+                                            <!--три точки-->
+                                            <Button Grid.Column="3" Click="PopupButton_Click" x:Name="PopupButton" Height="15" Margin="3" HorizontalAlignment="Right" VerticalAlignment="Top" BorderThickness="0">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <TextBlock Text="..." VerticalAlignment="Bottom" Margin="0,-3,0,0" HorizontalAlignment="Center" FontSize="37" FontFamily="{StaticResource MainFont}">
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="TextBlock">
+                                                                                <Setter Property="Foreground" Value="{StaticResource Color_2}"/>
+                                                                                <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                                                    </TextBlock>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+
+                                            <!-- Popup -->
+                                            <Popup x:Name="ActionPopup" PlacementTarget="{Binding ElementName=PopupButton}" Placement="Bottom" StaysOpen="False">
+                                                <Border Background="{StaticResource Color_5}" BorderBrush="{StaticResource Color_6}" BorderThickness="3" Padding="5">
+                                                    <StackPanel>
+                                                        <Button Click="PopupOpenInYTAction_Click" Background="Transparent" BorderThickness="0" Margin="5">
+                                                            <TextBlock Text="Открыть в YT" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                        FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_1}"/>
+                                                        </Button>
+
+                                                        <Rectangle Fill="{StaticResource Color_6}" Height="1" Width="50"/>
+                                                        <Button Click="PopupInfoAction_Click" Background="Transparent" BorderThickness="0" Margin="5">
+                                                            <TextBlock Text="Информация" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                        FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_1}"/>
+                                                        </Button>
+
+                                                        <Rectangle Fill="{StaticResource Color_6}" Height="1" Width="50"/>
+                                                        <Button Click="PopupUpdateAction_Click" Background="Transparent" BorderThickness="0" Margin="5">
+                                                            <TextBlock Text="Обновить" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                       FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_1}"/>
+                                                        </Button>
+
+                                                        <Rectangle Fill="{StaticResource Color_6}" Height="1" Width="50"/>
+                                                        <Button Click="PopupDeleteAction_Click" Background="Transparent" BorderThickness="0" Margin="5">
+                                                            <TextBlock Text="В архив" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                       FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_1}"/>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Popup>
+                                        </Grid>
+
+                                        <Rectangle Grid.Row="1" Height="1" Fill="{StaticResource Color_3}"/>
+
+                                        
+                                        <!--Кнопка и выбор типа работ-->
+                                        <Grid Grid.Row="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="220"/>
+                                                <ColumnDefinition Width="350"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid Grid.Column="0" Margin="5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <!-- ▶▎ ▎-->
+                                                <Button Grid.Column="0" x:Name="TaskButton" Click="TaskButton_Click" Style="{StaticResource ButtonRectVolume1}"/>
+
+                                                <TextBlock Grid.Column="1" MouseLeftButtonDown="WorkTypeSelectTB_MouseLeftButtonDown" Margin="10,0,0,0" FontSize="20" Text="{Binding StandartWorkType.Name}" FontFamily="{StaticResource MainFont}" VerticalAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="{StaticResource Color_6}"/>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                </Trigger>
+                                                                <DataTrigger Binding="{Binding IsActive}" Value="true">
+                                                                    <Setter Property="Foreground" Value="{StaticResource Color_Pink}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+
+                                                    <TextBlock.Effect>
+                                                        <DropShadowEffect Color="#FFF2DCFF" ShadowDepth="0" Direction="0" BlurRadius="5"/>
+                                                    </TextBlock.Effect>
+                                                </TextBlock>
+                                            </Grid>
+                                            
+
+                                            <Grid Grid.Column="1" Margin="5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Не в треке" VerticalAlignment="Top" HorizontalAlignment="Center"
+     FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="0" Text="В треке" VerticalAlignment="Top" HorizontalAlignment="Center"
+     FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+                                                <TextBlock Grid.Column="2" Grid.Row="0" Text="Всего" VerticalAlignment="Top" HorizontalAlignment="Center"
+     FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+
+                                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding UntrackedTime}" VerticalAlignment="Center" HorizontalAlignment="Center"
+     FontSize="18" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Yellow}"/>
+                                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding TrackedTime}" VerticalAlignment="Center" HorizontalAlignment="Center"
+     FontSize="18" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Green}"/>
+                                                <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding AllTimeSpent}" VerticalAlignment="Center" HorizontalAlignment="Center"
+     FontSize="18" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_1}"/>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Rectangle Grid.Row="3" Height="1" Fill="{StaticResource Color_3}"/>
+
+                                        <!--Логи-->
+
+                                        <Grid Grid.Row="4" Margin="20">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="12"/>
+                                                <RowDefinition Height="10"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="410"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="135"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Не в треке (последние моменты активности по задаче)" HorizontalAlignment="Left"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+
+
+                                            <!--1 лог-->
+                                            <ScrollViewer Grid.Row="2" Grid.Column="0" Background="{StaticResource Color_5}" VerticalScrollBarVisibility="Hidden">
+                                                <Grid>
+                                                    <ItemsControl ItemsSource="{Binding ActiveLog}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+
+                                                                <Grid Height="20" Margin="2" Background="{StaticResource Color_4}">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="65"/>
+                                                                        <ColumnDefinition Width="150"/>
+                                                                        <ColumnDefinition Width="65"/>
+                                                                        <ColumnDefinition Width="100"/>
+                                                                        <ColumnDefinition Width="20"/>
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                    <TextBlock Grid.Column="0" Text="{Binding ShortDateStr}" HorizontalAlignment="Center" VerticalAlignment="Center"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+                                                                    <TextBlock Grid.Column="1" Text="{Binding WorkType.Name}" HorizontalAlignment="Center" VerticalAlignment="Center"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+                                                                    <TextBlock Grid.Column="2" Text="{Binding DurationStr}" HorizontalAlignment="Center" VerticalAlignment="Center"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Yellow}"/>
+                                                                    <TextBlock Grid.Column="3" Text="{Binding TimeBetweenStr}" HorizontalAlignment="Center" VerticalAlignment="Center"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+
+                                                                    <Button Grid.Column="4" Click="DeleteActiveLogItem_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                                                        <Button.Style>
+                                                                            <Style TargetType="Button">
+                                                                                <Setter Property="Template">
+                                                                                    <Setter.Value>
+                                                                                        <ControlTemplate TargetType="Button">
+                                                                                            <TextBlock Text="×" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}">
+                                                                                                <TextBlock.Style>
+                                                                                                    <Style TargetType="TextBlock">
+                                                                                                        <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                                                        <Style.Triggers>
+                                                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                                                <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                                                            </Trigger>
+                                                                                                        </Style.Triggers>
+                                                                                                    </Style>
+                                                                                                </TextBlock.Style>
+                                                                                            </TextBlock>
+                                                                                        </ControlTemplate>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+
+                                                                </Grid>
+
+
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </Grid>
+                                            </ScrollViewer>
+
+
+
+
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="В треке" HorizontalAlignment="Left"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+
+
+                                            <!--2 лог-->
+                                            <ScrollViewer Grid.Row="2" Grid.Column="2" Background="{StaticResource Color_5}" VerticalScrollBarVisibility="Hidden">
+                                                <Grid>
+                                                    <ItemsControl ItemsSource="{Binding DaysWorkedTime}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel/>
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+
+                                                                <Grid Height="20" Margin="2" Background="{StaticResource Color_4}">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="65"/>
+                                                                        <ColumnDefinition Width="65"/>
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                    <TextBlock Grid.Column="0" Text="{Binding ShortDate}" HorizontalAlignment="Center" VerticalAlignment="Center"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+                                                                    <TextBlock Grid.Column="1" Text="{Binding Time}" HorizontalAlignment="Center" VerticalAlignment="Center"
+FontSize="12" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Green}"/>
+                                                                </Grid>
+
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </Grid>
+                                            </ScrollViewer>
+
+                                        </Grid>
+
+                                        <!--кнопка скрыть информацию-->
+                                        <Button Grid.Row="4" Click="PopupInfoAction_Click" Margin="0,10,10,0" Width="30" Style="{StaticResource ButtonRect_gray}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                            <TextBlock Text="∧" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                                        </Button>
+                                        
+                                    </Grid>
+                                </Border>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+
+
+
+            <!--FOOTER-->
+            <Border Grid.Row="3" x:Name="Footer" Visibility="Collapsed" BorderThickness="1" BorderBrush="{StaticResource Color_6}">
+                <Grid Background="{StaticResource Color_4}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="ID задачи" HorizontalAlignment="Center" VerticalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+
+                    <Border Grid.Column="1" Margin="0,5,0,5" BorderThickness="1" BorderBrush="{StaticResource Color_2}">
+                        <TextBox x:Name="TB_CreatingTaskID" KeyDown="TB_CreatingTaskID_KeyDown" Foreground="{StaticResource Color_1}" FontSize="20" Background="Transparent" BorderBrush="Transparent"/>
+                    </Border>
+
+                    <Button Grid.Column="4" Name="B_CreateTask" Margin="3" Style="{StaticResource ButtonRect_green}" Click="CreateTask_Click">
+                        <TextBlock Text="✓" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                    </Button>
+
+                    <Button Grid.Column="5" Margin="3" Style="{StaticResource ButtonRect_gray}" Click="CloseTaskCreating_Click">
+                        <TextBlock Text="×" Margin="10,0,10,1" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="25" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                    </Button>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        
+        
+        
+
+
+        <!--панель Список типов работ-->
+        <Grid x:Name="WorkTypeListPanel" HorizontalAlignment="Right" Width="0" Background="{StaticResource Color_6}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Name="TB_TaskInfoForSelectWorkType" Grid.Column="0" Text="" Margin="10" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+
+                <Button Grid.Column="1" Margin="5" Style="{StaticResource ButtonRect_gray}" Click="WorkTypeListPanelClose_Click" HorizontalAlignment="Right">
+                    <TextBlock Text="×" Margin="5,0,5,2" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="25" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                </Button>
+            </Grid>
+
+
+            <Border Grid.Row="1" Margin="20" >
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                    <StackPanel x:Name="WorkTypeList" Margin="10">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock" x:Key="WTTextBlockStyle">
+                                <Setter Property="Margin" Value="0,0,0,5"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="20"/>
+                                <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Resources>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+        </Grid>
+    </Grid>
+</Page>

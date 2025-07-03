@@ -1,0 +1,95 @@
+﻿<Page x:Class="TimeManagement.Pages.ArchivePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManagement.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="500"
+      Title="ArchivePage">
+
+    <Page.Resources>
+
+    </Page.Resources>
+
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Архив" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+            FontSize="50" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+        <Rectangle Grid.Row="2" Height="1" MaxWidth="300" Fill="{StaticResource Color_3}"/>
+
+        <Grid Grid.Row="5" Background="{StaticResource Color_6}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Вы можете восстановить только что удаленные задачи:" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"
+        FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_4}"/>
+
+                <TextBlock Margin="0,10,10,10" Text="Восстановить" MouseLeftButtonDown="DeletedGoBack_Click" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+            </StackPanel>
+        </Grid>
+
+        <!--Кнопка Очистить все-->
+        <Button Grid.Row="3" x:Name="B_ClearAll" Click="B_ClearAll_Click" Margin="30,5,5,5" Width="105" Style="{StaticResource ButtonRect_gray}" ToolTip="Очистить весь архив" HorizontalAlignment="Left">
+            <TextBlock Text="Очистить всё" Margin="3" FontSize="15" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+        </Button>
+
+        <ScrollViewer Grid.Row="4" Margin="30,0,30,30" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+            <Grid >
+                <ItemsControl x:Name="TaskItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="30" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" Click="PopupComeBackAction_Click" Margin="3" Style="{StaticResource ButtonRect_green}" ToolTip="Вернуть в список задач">
+                                    <TextBlock Text="^" Margin="3,6,3,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                                </Button>
+
+                                <Button Grid.Column="1" Click="PopupDeleteAction_Click" Margin="3" Style="{StaticResource ButtonRect_gray}" ToolTip="Удалить">
+                                    <TextBlock Text="x" Margin="3,-2,3,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                                </Button>
+
+
+                                <TextBlock Grid.Column="2" Text="{Binding TaskId}" Margin="10,4,0,0" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+                                <TextBlock Grid.Column="3" Text="{Binding Name}" Margin="10,4,0,0" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

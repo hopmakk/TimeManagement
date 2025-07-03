@@ -1,0 +1,66 @@
+﻿<Page x:Class="TimeManagement.Pages.InfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManagement.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="500"
+      Title="InfoPage">
+
+    <Page.Resources>
+
+    </Page.Resources>
+    
+    
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+            <StackPanel>
+
+                <TextBlock Grid.Row="0" Text="Информация" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="50" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+                <Rectangle Grid.Row="2" Height="1" MaxWidth="400" Fill="{StaticResource Color_3}"/>
+
+                <TextBlock x:Name="TB1" Margin="30,30,30,0" TextWrapping="Wrap"  FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                </TextBlock>
+
+                <TextBlock Text="Блок задачи" Margin="0,20,0,10" TextWrapping="Wrap" FontSize="30" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Border CornerRadius="15" Margin="30,0,30,20" Background="{StaticResource Color_6}">
+                    <Image Margin="10" Source="/Resources/Images/TaskInstructions.png" />
+                </Border>
+
+                <TextBlock Text="Справка" Margin="0,20,0,10" TextWrapping="Wrap" FontSize="30" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <TextBlock x:Name="TB2" Margin="30,0,30,30" TextWrapping="Wrap"  FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                </TextBlock>
+
+                <TextBlock Text="Благодарности" Margin="0,0,0,10" TextWrapping="Wrap" FontSize="30" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Border CornerRadius="15" Margin="30,0,30,30" Background="{StaticResource Color_6}" MaxWidth="600">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Без этих людей приложение бы не добралось до релиза" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                        <Rectangle Fill="{StaticResource Color_3}" Height="1" Margin="0,10,0,10"></Rectangle>
+                        <TextBox Text="Юлия Захарова - Аналитик SCBT OpenApi" IsReadOnly="True" Margin="-2,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" Background="Transparent" BorderThickness="0"/>
+                        <TextBox Text="Самир Искендеров - Лид SCBT EFactoring Dev" IsReadOnly="True" Margin="-2,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" Background="Transparent" BorderThickness="0"/>
+                    </StackPanel>
+                </Border>
+
+                <TextBlock Text="Связь" Margin="0,10,0,10" TextWrapping="Wrap" FontSize="30" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Border CornerRadius="15" Margin="30,0,30,70" Background="{StaticResource Color_6}" MaxWidth="600">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Контакты разработчика" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                        <Rectangle Fill="{StaticResource Color_3}" Height="1" Margin="0,10,0,10"></Rectangle>
+                        <TextBlock Text="Андрей Серов" Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                        <TextBox Text="mail: hopmakk@gmail.com" IsReadOnly="True" Margin="-2,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" Background="Transparent" BorderThickness="0"/>
+                        <TextBox Text="mailSCBT: serovan@sovcombank.ru" IsReadOnly="True" Margin="-2,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" Background="Transparent" BorderThickness="0"/>
+                        <TextBox Text="telegram: @xtq_b" IsReadOnly="True" Margin="-2,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}" Background="Transparent" BorderThickness="0"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

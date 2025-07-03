@@ -1,0 +1,268 @@
+﻿<Page x:Class="TimeManagement.Pages.ReportPage2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManagement.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="500"
+      Title="ReportPage2">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="∧∨ - Увеличить/уменьшить время на 5 минут" VerticalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+                <TextBlock Text="∆∇ - Увеличить/уменьшить время на 1 час" VerticalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+                <TextBlock Text="○   - Округлить время до кратного 5 минутам" VerticalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_2}"/>
+            </StackPanel>
+
+            <Button Grid.Column="1" Click="NextPage_Click" Width="110" Height="40" Margin="20" Style="{StaticResource ButtonRect_green}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <TextBlock Text="Далее" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+            </Button>
+        </Grid>
+
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="TB_MainDate" Text="-" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center"
+            FontSize="50" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+            <!--верхняя подсказка-->
+            <StackPanel Grid.Row="1" Margin="0,0,0,15" VerticalAlignment="Center" Background="{StaticResource Color_6}">
+                <TextBlock Text="Выберите задачи, по которым хотите списать время" Margin="0,10,0,5" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                <TextBlock Text="Отредактируйте время, если это необходимо" Margin="0,0,0,10" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+            </StackPanel>
+
+            <!--кнопка выбрать все-->
+            <Button Grid.Row="2" Click="B_SelectAll_Click" Width="40" Height="20" Margin="20,0,0,0" Style="{StaticResource ButtonRect_gray}" HorizontalAlignment="Left" ToolTip="Выбрать\Отменить всё">
+                <TextBlock Text="∨" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="ExtraBold"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+            </Button>
+
+            <!--список записей-->
+            <ScrollViewer Grid.Row="3" Margin="20,0,20,20" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+
+                <ItemsControl x:Name="TaskItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid Height="40" Margin="0,5,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="165"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox Grid.Column="0" IsChecked="{Binding AllowToSend}" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                <Rectangle Grid.Column="2" Width="0" Height="20" Margin="20,0,20,0" Fill="{StaticResource Color_3}"/>
+                                <Rectangle Grid.Column="4" Width="0" Height="20" Margin="20,0,20,0" Fill="{StaticResource Color_3}"/>
+                                <Rectangle Grid.Column="6" Width="0" Height="20" Margin="20,0,20,0" Fill="{StaticResource Color_3}"/>
+
+                                <TextBlock Grid.Column="1" Text="{Binding TaskId}" Margin="0,9,5,0" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="5" Text="{Binding WorkType.Name}" Margin="0,9,5,5" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"  HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="7" Text="{Binding Name}" Margin="0,9,0,0" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+                                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" Background="Transparent">
+                                    <TextBlock Text="{Binding UntrackedTime}" Margin="0,9,5,5" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Yellow}"  HorizontalAlignment="Center"/>
+
+                                    <Grid Grid.Column="4" Margin="3,2,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Button Click="TimeUp_Click" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <TextBlock Text="∧" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="17" FontFamily="{StaticResource MainFont}">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="TextBlock">
+                                                                            <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                        <Button Grid.Row="1" Margin="0,0,0,5" Click="TimeDown_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <TextBlock Text="∨" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="17" FontFamily="{StaticResource MainFont}">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="TextBlock">
+                                                                            <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+
+                                    </Grid>
+
+                                    <Grid Margin="3,3,0,0" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Button Grid.Row="0" Click="TimeBigUp_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <TextBlock Text="∆" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="15" FontFamily="{StaticResource MainFont}">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="TextBlock">
+                                                                            <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                        <Button Grid.Row="1" Margin="0,0,0,4" Click="TimeBigDown_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <TextBlock Text="∇" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="15" FontFamily="{StaticResource MainFont}">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="TextBlock">
+                                                                            <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+
+                                    </Grid>
+
+                                    <Button Click="RoundTime_Click" Margin="3,0,0,0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <TextBlock Text="○" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="15" FontFamily="{StaticResource MainFont}">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </StackPanel>
+
+
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding AllowToSend}" Value="true">
+                                                <Setter Property="Background" Value="{StaticResource Color_6}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding AllowToSend}" Value="false">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                            </Grid>
+
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </ScrollViewer>
+
+        </Grid>
+        
+    </Grid>
+</Page>

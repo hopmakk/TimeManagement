@@ -1,0 +1,214 @@
+﻿<Page x:Class="TimeManagement.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManagement.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="500"
+      Title="SettingsPage">
+
+    <Page.Resources>
+
+    </Page.Resources>
+
+
+    <Grid>
+
+        <Grid Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Настройки" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+        FontSize="50" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+            <Rectangle Grid.Row="2" Height="1" MaxWidth="300" Fill="{StaticResource Color_3}"/>
+
+            <ScrollViewer Grid.Row="3" Margin="0,30,0,30" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                <StackPanel>
+
+                    <!--Автотрек-->
+                    <Border Background="{StaticResource Color_6}" Margin="0,0,0,20">
+                        <Grid Margin="30,10,30,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox Grid.Column="0" IsChecked="{Binding ConfigData.AutoTrack}"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="Автотрек" HorizontalAlignment="Left" VerticalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            </Grid>
+
+                            <!--Время автотрека-->
+                            <Grid Grid.Row="1" Margin="15,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="15"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Rectangle Grid.Column="0" Width="1" Fill="{StaticResource Color_3}"/>
+                                <TextBlock Grid.Column="1" Margin="15,0,0,0" Text="Время, в которое будет совершён:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                                <TextBlock Grid.Column="2" Text="{Binding ConfigData.AutoTrackTime}" x:Name="TB_AutoTrackTime" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_Green}"/>
+
+                                <Grid Grid.Column="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Button Grid.Row="0" Click="AutoTrackTimeUp_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <TextBlock Text="∧" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Grid.Row="1" Click="AutoTrackTimeDown_Click" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <TextBlock Text="∨" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Setter Property="Foreground" Value="{StaticResource Color_3}"/>
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                    
+                    <!--плеер-->
+                    <Border Background="{StaticResource Color_6}" Margin="0,0,0,20">
+                        <Grid Margin="30,10,30,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <CheckBox Grid.Column="0" IsChecked="{Binding ConfigData.TaskPlayerActive}"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="Плеер задач" HorizontalAlignment="Left" VerticalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            </Grid>
+
+                            <!--Отображение незатреканного времени-->
+                            <Grid Grid.Row="1" Margin="15,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Rectangle Grid.Column="0" Width="1" Fill="{StaticResource Color_3}"/>
+                                <TextBlock Grid.Column="2" Margin="5,0,0,0" Text="Отображать незатреканное время" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                                <CheckBox Grid.Column="1" Margin="15,0,0,0" IsChecked="{Binding ConfigData.TaskPlayerShowUntrackedTime}"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            
+                            
+                        </Grid>
+                    </Border>
+                    
+                    <!--проект-->
+                    <Border Background="{StaticResource Color_6}" Margin="0,0,0,20">
+                        <Grid Margin="30,15,30,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="Проект: " Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            <TextBlock Grid.Row="1" Text="Статус токена: " Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            <TextBlock Grid.Row="2" Text="Базовый URL YT: " Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            <TextBlock Grid.Row="3" Text="Переопределить: " Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ConfigData.ProjectName}" Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ConfigData.TokenStatus}" Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ConfigData.BaseURL}" Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+                            <Button Grid.Row="3" Grid.Column="1" Margin="10,5,0,0" Name="B_ProjectData" Click="B_ProjectData_Click" Style="{StaticResource ButtonRect_red}" HorizontalAlignment="Left">
+                                <TextBlock Text="Обновить" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!--Сброс-->
+                    <Border Margin="0,0,0,20" Background="{StaticResource Color_6}">
+                        <StackPanel Margin="30,15,30,17" Orientation="Horizontal">
+                            <TextBlock Grid.Row="0" Text="Полный сброс данных приложения: " HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+                            <Button Grid.Row="1" Margin="5" Name="B_AllDataBreak" Click="B_AllDataBreak_Click" Style="{StaticResource ButtonRect_red}">
+                                <TextBlock Text="Сброс" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_6}"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+
+
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+
+    </Grid>
+</Page>

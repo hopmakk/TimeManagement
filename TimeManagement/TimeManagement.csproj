@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>image.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="image.ico" />
+    <None Remove="Other\image.ico" />
+    <None Remove="Resources\Images\TaskInstructions.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CredentialManagement" Version="1.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Security.Permissions" Version="9.0.0" />
+    <PackageReference Include="YouTrackSharp" Version="2022.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="image.ico" />
+    <Resource Include="Resources\Images\TaskInstructions.png" />
+  </ItemGroup>
+
+</Project>

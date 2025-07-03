@@ -1,0 +1,87 @@
+﻿<Page x:Class="TimeManagement.Pages.ReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManagement.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="500"
+      Title="ReportPage">
+
+    <Page.Resources>
+        
+    </Page.Resources>
+
+    <Grid Background="Transparent">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Text="Отчёт в YouTrack" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        FontSize="50" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Background="{StaticResource Color_6}">
+                <TextBlock Text="Выберите день, по которому будет создан отчёт" Margin="0,10,0,5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                            FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+                <TextBlock Text="Активные задачи будут выключены" Margin="0,0,0,10" VerticalAlignment="Center" HorizontalAlignment="Center"
+                            FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_3}"/>
+            </StackPanel>
+
+            <Border Grid.Row="2" Margin="50" >
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <Rectangle Grid.Row="3" Height="1" MaxWidth="300" Fill="{StaticResource Color_4}"/>
+
+                        <StackPanel x:Name="UntrackDateItemContainer" Margin="10">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock" x:Key="DateTextBlockStyle">
+                                    <Setter Property="Margin" Value="5"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                    <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Color_2}"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Resources>
+                        </StackPanel>
+
+                        <Rectangle Grid.Row="3" Height="1" MaxWidth="300" Fill="{StaticResource Color_4}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Grid Grid.Row="3">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Вы также можете отправить отчёт автоматически:" VerticalAlignment="Center" HorizontalAlignment="Center"
+    FontSize="20" FontFamily="{StaticResource MainFont}" Foreground="{StaticResource Color_4}"/>
+
+                    <TextBlock Margin="10,0,0,0" Text="Автотрек" MouseLeftButtonDown="B_AutoTrack_MouseLeftButtonDown" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontFamily="{StaticResource MainFont}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource Color_2}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{StaticResource Color_1}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    
+                </StackPanel>
+            </Grid>
+            
+
+        </Grid>
+        
+    </Grid>
+</Page>

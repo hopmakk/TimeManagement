@@ -10,7 +10,10 @@
 - **Автономная работа** без постоянного подключения
 
 Приложение автоматизирует рутинный процесс списания часов в YouTrack. Вам больше не нужно запоминать, сколько времени вы потратили на каждую задачу или вручную заполнять отчёты — просто нажимайте кнопку ▶️ при начале работы над задачей и при завершении. Приложение аккуратно сохранит все временные отрезки и **автоматически отправит их в YouTrack** в конце дня. Никаких сложных форм, лишних действий или забытых задач — только ваша работа и точный учёт времени без усилий. 
-![Главная страница](https://github.com/user-attachments/assets/0c880450-ad81-4a38-8d17-12ccdf274f8d)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0c880450-ad81-4a38-8d17-12ccdf274f8d" width="50%"/>
+</p>
 
 ---
 
@@ -19,7 +22,10 @@
 
 ### 1. Страница входа
 Для начала работы необходимо привязать приложение к вашему YouTrack. Следуйте за руководством и создайте персональный YouTrack токен. Ваш токен сохраняется в локальный менеджер паролей Windows Credential Manager и находится под защитой.
-![Токен](https://github.com/user-attachments/assets/951d42bb-e190-41cf-bb5c-1b5d2dbc3fd2)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/951d42bb-e190-41cf-bb5c-1b5d2dbc3fd2" width="50%"/>
+</p>
 
 
 ### 2. Страница задач
@@ -31,12 +37,20 @@
     - Просмотр логов
     - Синхронизация времени
     - Перенос в архив
-![Задачи](https://github.com/user-attachments/assets/ff7cd82d-9664-4ace-b447-57a3ee7d7a16)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ff7cd82d-9664-4ace-b447-57a3ee7d7a16" width="50%"/>
+</p>
+
 
 
 ### 2.5. Плеер задач
 При сворачивании приложения активируется плеер задач. Переключайтесь между задачами не открывая основного окна.
-![Плеер](https://github.com/user-attachments/assets/ab8826d6-df7f-42fb-83c1-c31ed14da763)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ab8826d6-df7f-42fb-83c1-c31ed14da763" width="50%"/>
+</p>
+
 
 
 ### 3. Отчёт в YouTrack
@@ -46,31 +60,51 @@
   - Выбор дня
   - Редактирование временных отрезков
   - Добавление комментариев
-![Автотрек](https://github.com/user-attachments/assets/499b1a0e-f35a-45c4-ac4f-0e4c1c22a31b)
-![Отчет1](https://github.com/user-attachments/assets/ca6faba6-9c07-4777-a01a-ace8bb7eb53e)
-![Отчет2](https://github.com/user-attachments/assets/27551111-a93b-431f-bcfe-69c3b59c0f6a)
-![Отчет3](https://github.com/user-attachments/assets/68904266-407b-47c4-8034-5a73064ccb94)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/499b1a0e-f35a-45c4-ac4f-0e4c1c22a31b" width="30%"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/27551111-a93b-431f-bcfe-69c3b59c0f6a" width="50%"/>
+</p>
+
 
 
 ### 4. Архив задач
 Храните неактивные задачи. Восстанавливайте их или удаляйте навсегда.
-![Архив](https://github.com/user-attachments/assets/7cab40f2-e4e7-4a3e-acf1-5d04d2cfe99f)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7cab40f2-e4e7-4a3e-acf1-5d04d2cfe99f" width="50%"/>
+</p>
+
 
 
 ### 5. Оповещения
 Вам будут приходить оповещения. Это могут быть как советы по использованию приложения, так и предупреждения или уведомления о критических ошибках.
-![Уведомления](https://github.com/user-attachments/assets/8669fb49-a28c-4580-975e-a52a43c33464)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8669fb49-a28c-4580-975e-a52a43c33464" width="50%"/>
+</p>
+
 
 
 ### 6. Настройки
 Вы можете сбросить данные приложение, обновить токен и настроить время Автотрека.
-![Настройки](https://github.com/user-attachments/assets/d99d4825-dcc2-44ea-9157-9ea11adfaf3b)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d99d4825-dcc2-44ea-9157-9ea11adfaf3b" width="50%"/>
+</p>
+
 
 
 ### 7. Информация о приложении
 - Описание функционала
 - Контакты для обратной связи
-![Инфо](https://github.com/user-attachments/assets/a40ab225-e4af-4567-ab93-cfe9495c9444)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a40ab225-e4af-4567-ab93-cfe9495c9444" width="50%"/>
+</p>
+
 
 
 ---
